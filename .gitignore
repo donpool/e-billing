@@ -1,0 +1,16 @@
+# Directorios de cache y corrida
+/assets
+config
+runtime
+
+# Directorio de documentos XML
+/protected/data/documentos
+
+# Directorio de trabajo de Netbeans
+nbproject
+
+# Archivos de parches
+*.patch
+
+# Archivo de fondo de encabezado
+header-bg.png
