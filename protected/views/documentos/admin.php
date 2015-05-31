@@ -147,6 +147,10 @@
             'doc_subtotal',
             'doc_iva',
             'doc_total',
+            'doc_estadopago',
+            'doc_formapago',
+            'doc_comisiona:boolean',
+            'doc_retencion:boolean',
             array('name'=>'doc_fecha_emision', 'htmlOptions'=>array('width'=>'10%')),
             array(
                 'name'=>'doc_clave_acceso',

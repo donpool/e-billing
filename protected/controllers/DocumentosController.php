@@ -83,7 +83,11 @@ class DocumentosController extends Controller
                     IFNULL(usr_telefono,'') TELEFONO1, 
                     IFNULL(usr_telefono1,'') TELEFONO2,
                     IFNULL(doc_matrizador, '') MATRIZADOR,
-                    IFNULL(doc_numerodelibro, '') NUMERODELIBRO"
+                    IFNULL(doc_numerodelibro, '') NUMERODELIBRO,
+                    IFNULL(doc_estadopago, '') ESTADOPAGO,
+                    IFNULL(doc_formapago, '') FORMAPAGO,
+                    IFNULL(doc_comisiona, '') COMISIONA,
+                    IFNULL(doc_retencion, '') RETENCION"
                 )
                     ->from('documentos d')
                     ->join('Usuarios u', 'u.usr_codigo=d.usr_codigo')
@@ -105,7 +109,11 @@ class DocumentosController extends Controller
                     'TELEFONO1'=>array('text'),
                     'TELEFONO2'=>array('text'),
                     'MATRIZADOR'=>array('text'),
-                    'NUMERODELIBRO'=>array('text')
+                    'NUMERODELIBRO'=>array('text'),
+                    'ESTADOPAGO'=>array('text'),
+                    'FORMAPAGO'=>array('text'),
+                    'COMISIONA'=>array('boolean'),
+                    'RETENCION'=>array('boolean'),
                 ),
            true, // boolPrinxtRows
            "Registro-{$_POST['doc_fecha_emisionInicio']}-{$_POST['doc_fecha_emisionFin']}.csv"

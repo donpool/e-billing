@@ -198,9 +198,9 @@ class CronjobCommand extends CConsoleCommand {
         if ($usr_codigo!=null)
             $modelDoc= Documentos::model()->find('doc_clave_acceso="'.$data->claveAcceso.'"');
         if (count($modelDoc)>0) {
-echo "Actualizando {$data->claveAcceso}...\n";
+            echo "Actualizando {$data->claveAcceso}...\n";
             $modelDoc->doc_fecupd=new CDbExpression('NOW()');
-            $this->setVarFields($modelDoc, $data);
+            $this->setVarFields($modelDoc, $data, false);
             if(!$modelDoc->save()) {
                 $respuesta=  false;
             } else {
@@ -217,7 +217,7 @@ echo "Actualizando {$data->claveAcceso}...\n";
             $model->usr_codigo=$usr_codigo;
             $model->doc_num_documento=$data->NumDocumento;
             //Cambio 03-03-2015 Agregar a la tabla documetnos nuevos campos
-            $this->setVarFields($model, $data);
+            $this->setVarFields($model, $data, true);
             //Fin
            
             if (!$model->save()) {
@@ -245,7 +245,7 @@ echo "Actualizando {$data->claveAcceso}...\n";
         return $respuesta;
     }
     
-    private function setVarFields($model, $data) {
+    private function setVarFields($model, $data, $isNew) {
         $model->doc_tipoIdentificacionComprador=$data->tipoIdentificacionComprador;
         if (isset ($data->subtotal)) 
             $model->doc_subtotal=$data->subtotal;
@@ -257,6 +257,15 @@ echo "Actualizando {$data->claveAcceso}...\n";
             $model->doc_matrizador=$data->matrizador;
         if (isset ($data->numerodelibro)) 
             $model->doc_numerodelibro=$data->numerodelibro;
+        if ($data->codDoc == '01') //Si es factura y es nueva o aún tiene N/A
+            if($isNew || $model->doc_estadopago == 'N/A')
+                $model->doc_estadopago = 'Por Cobrar';
+        if ($isNew) { //Si es nuevo setea valores por defecto
+            $model->doc_formapago=null;
+            $model->doc_comisiona=0;
+            $model->doc_retencion=0;
+        }
+        
         return $model;
     }
 

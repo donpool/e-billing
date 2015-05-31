@@ -1,6 +1,6 @@
 # Directorios de cache y corrida
 /assets
-params.php
+/protected/config/params.php
 runtime
 
 # Directorio de documentos XML

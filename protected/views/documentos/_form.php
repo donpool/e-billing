@@ -40,9 +40,27 @@
     <?php endforeach; ?>
     
 	<div class="row">
-		<?php echo $form->labelEx($model,'doc_numerodelibro'); ?>
-		<?php echo $form->textField($model,'doc_numerodelibro'); ?>
-		<?php echo $form->error($model,'doc_numerodelibro'); ?>
+		<?php echo $form->labelEx($model,'doc_estadopago'); ?>
+		<?php echo $form->dropDownList($model,'doc_estadopago', array('N/A'=>'N/A','Por Cobrar'=>'Por Cobrar','Pagado'=>'Pagado',)); ?>
+		<?php echo $form->error($model,'doc_estadopago'); ?>
+	</div>
+    
+	<div class="row">
+		<?php echo $form->labelEx($model,'doc_formapago'); ?>
+		<?php echo $form->textField($model,'doc_formapago'); ?>
+		<?php echo $form->error($model,'doc_formapago'); ?>
+	</div>
+    
+	<div class="row">
+		<?php echo $form->labelEx($model,'doc_comisiona'); ?>
+		<?php echo $form->dropDownList($model,'doc_comisiona', array('0'=>'No','1'=>'Sí',)); ?>
+		<?php echo $form->error($model,'doc_comisiona'); ?>
+	</div>
+    
+	<div class="row">
+		<?php echo $form->labelEx($model,'doc_retencion'); ?>
+		<?php echo $form->dropDownList($model,'doc_retencion', array('0'=>'No','1'=>'Sí',)); ?>
+		<?php echo $form->error($model,'doc_retencion'); ?>
 	</div>
 <!--
 
