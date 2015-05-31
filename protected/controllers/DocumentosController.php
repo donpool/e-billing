@@ -32,7 +32,7 @@ class DocumentosController extends Controller
 //                'users'=>array('*'),
 //            ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions'=>array('admin','delete','pdf'),
+                'actions'=>array('admin','update','delete','pdf'),
                 'expression'=>'Yii::app()->authmanager->checkAccess("Administrador",Yii::app()->user->id) '
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -69,14 +69,44 @@ class DocumentosController extends Controller
 //            var_dump($m);
 //            exit();
            CsvExport::export(
-                   Yii::app()->db->createCommand()->select("doc_fecha_emision  FECHA, doc_num_documento FACTURA, usr_nombre NOMBRES, IFNULL( doc_subtotal,'') SUBTOTAL,  IFNULL(doc_iva,'' )IVA,  IFNULL(doc_total,'') TOTAL, IFNULL(  CAST(usr_ruc as char(100)),'') CEDULA, IFNULL(doc_tipoIdentificacionComprador , '') TIPO, usr_emal CORREO,usr_direccion DIRECCION ,IFNULL(usr_telefono,'') TELEFONO1, IFNULL(usr_telefono1,'') TELEFONO2,doc_matrizador MATRIZADOR")
+                Yii::app()->db->createCommand()->select("
+                    doc_fecha_emision  FECHA, 
+                    doc_num_documento FACTURA, 
+                    usr_nombre NOMBRES, 
+                    IFNULL( doc_subtotal,'') SUBTOTAL,  
+                    IFNULL(doc_iva,'' )IVA,  
+                    IFNULL(doc_total,'') TOTAL, 
+                    IFNULL(  CAST(usr_ruc as char(100)),'') CEDULA, 
+                    IFNULL(doc_tipoIdentificacionComprador , '') TIPO, 
+                    IFNULL(usr_emal, '') CORREO,
+                    IFNULL(usr_direccion, '') DIRECCION,
+                    IFNULL(usr_telefono,'') TELEFONO1, 
+                    IFNULL(usr_telefono1,'') TELEFONO2,
+                    IFNULL(doc_matrizador, '') MATRIZADOR,
+                    IFNULL(doc_numerodelibro, '') NUMERODELIBRO"
+                )
                     ->from('documentos d')
                     ->join('Usuarios u', 'u.usr_codigo=d.usr_codigo')
                     ->where ( 'doc_cod_doc='.$tipo.' and doc_estado=true and (doc_fecha_emision  BETWEEN '."'".$datetimemin."'".' AND '."'".$datetimemax."'".')')
                    ->order ('doc_fecha_emision')
                     ->queryAll(),
                    
-           array('FECHA'=>array('date'),'FACTURA'=>array('text'),'NOMBRES'=>array('text'),'SUBTOTAL'=>array('text'),'IVA'=>array('text'),'TOTAL'=>array('text'),'CEDULA'=>array('text'),'TIPO'=>array('text'),'CORREO'=>array('text'),'DIRECCION'=>array('text'),'TELEFONO1'=>array('text'),'TELEFONO2'=>array('text'),'MATRIZADOR'=>array('text')),
+                array(
+                    'FECHA'=>array('date'),
+                    'FACTURA'=>array('text'),
+                    'NOMBRES'=>array('text'),
+                    'SUBTOTAL'=>array('text'),
+                    'IVA'=>array('text'),
+                    'TOTAL'=>array('text'),
+                    'CEDULA'=>array('text'),
+                    'TIPO'=>array('text'),
+                    'CORREO'=>array('text'),
+                    'DIRECCION'=>array('text'),
+                    'TELEFONO1'=>array('text'),
+                    'TELEFONO2'=>array('text'),
+                    'MATRIZADOR'=>array('text'),
+                    'NUMERODELIBRO'=>array('text')
+                ),
            true, // boolPrinxtRows
            "Registro-{$_POST['doc_fecha_emisionInicio']}-{$_POST['doc_fecha_emisionFin']}.csv"
            );
@@ -145,9 +175,13 @@ public function actionCoco()
 
         if(isset($_POST['Documentos']))
         {
-            $model->attributes=$_POST['Documentos'];
+// Comento esta línea y agrego las otras dos porque esta no funca
+//            $model->attributes=$_POST['Documentos'];
+            foreach($_POST['Documentos'] as $key => $val)
+                $model->setAttribute($key, $val);
             if($model->save())
-                $this->redirect(array('view','id'=>$model->doc_codigo));
+//                $this->redirect(array('view','id'=>$model->doc_codigo));
+                $this->redirect(array('admin'));
         }
 
         $this->render('update',array(

@@ -247,7 +247,8 @@ foreach ($node->attributes() as $atr => $value) {
 $atributo=(string)$value;
 if ($atributo=="Email Cliente" or $atributo=="Email" )
 $data->email=(string)$node;
-if( !isset( $datos->email ) ) $datos->email = 'comprobantes@notario35quito.com';
+if( !isset( $datos->email ) ) 
+    $datos->email = Yii::app()->params['adminEmail'];
 if ($atributo=="Dirección")
 $data->direccion=(string)$node;
 if ($atributo=="Teléfono")
@@ -313,7 +314,7 @@ $header ='
 Yii::app()->ePdf->mpdf();  
 $mpdf = new mPDF('utf-8','LETTER','','',15,15,25,12,5,7);
 //$mpdf->SetHTMLHeader($header);
-$mpdf->SetFooter('RIDE');
+$mpdf->SetFooter(Yii::app()->params['rideFooter']);
 $mpdf->WriteHTML($this->html,false);
 $arc=$id.'.pdf'; 
 if ($tipo) $mpdf->Output($ruta.'/'.$arc,'F');

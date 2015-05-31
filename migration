@@ -1,0 +1,2 @@
+201505301215:
+ALTER TABLE  `documentos` ADD  `doc_numerodelibro` VARCHAR( 32 ) NULL AFTER  `doc_matrizador` ;

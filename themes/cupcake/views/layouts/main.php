@@ -137,13 +137,13 @@
     <!-- END MAIN -->
     <!-- START FOOTER -->
     <div id="footer">
-    	<div class="left-column">© Copyright 2014 - All rights reserved.</div>
-        <div class="right-column">Notario 35 Quito<br />
-                     Gaspar de Villarroel y Amazonas, Quito, Ecuador.  
+    	<div class="left-column">© Copyright <?php echo date('Y'); ?> - Todos los derechos reservados.</div>
+        <div class="right-column"><?php echo Yii::app()->params['companyName']; ?><br />
+                     <?php echo Yii::app()->params['companyAddress']; ?>
                     <br>
-                    <a href="mailto:info@notario35quito.com">Contacto</a>
+                    <a href="mailto:<?php echo Yii::app()->params['companyEmail']; ?>">Contacto</a>
                     |
-                    <a href="http://www.notario35quito.com/">Sitio WEB</a></div>
+                    <a href="<?php echo Yii::app()->params['companyURL']; ?>">Sitio WEB</a></div>
     </div>
     <!-- END FOOTER -->
 

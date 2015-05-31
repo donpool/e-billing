@@ -42,7 +42,7 @@ class Documentos extends CActiveRecord
 			array('doc_num_documento', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('doc_codigo, usr_codigo, doc_clave_acceso, doc_cod_doc, doc_fecha_emision, doc_valor_total,  doc_estado, doc_fecadd, doc_fecupd, usr_codigoupd', 'safe', 'on'=>'search'),
+			array('doc_codigo, usr_codigo, doc_clave_acceso, doc_cod_doc, doc_fecha_emision, doc_valor_total,  doc_estado, doc_fecadd, doc_fecupd, usr_codigoupd, doc_numerodelibro', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -76,6 +76,7 @@ class Documentos extends CActiveRecord
 			'usr_codigoupd' => 'Usr Codigoupd',
 			'doc_num_documento' => 'Nº. Documento',
 			'doc_matrizador' => 'Matrizador',
+            'doc_numerodelibro' => '# Libro',
 			'doc_subtotal' => 'Subtotal',
 			'doc_iva' => 'IVA',
 			'doc_total' => 'Total',
@@ -159,20 +160,18 @@ class Documentos extends CActiveRecord
 	}
         
         
-        /*
-         * Lista Documentos por Usuario
-         */
-            public static function fnListDocuments($usr_codigo=null){
-       
-             $usuario="";
-             if ($usr_codigo !=null) $usuario=" and usr_codigo=".$usr_codigo;
-             $sql="
-                select * from documentos 
-                where doc_estado=true ".$usuario;
+    /*
+     * Lista Documentos por Usuario
+     */
+    public static function fnListDocuments($usr_codigo=null){
 
-           $result=Yii::app()->db->createCommand($sql)->queryAll();
-            return $result;
-            
-            
-        }
+        $usuario="";
+        if ($usr_codigo !=null) 
+            $usuario=" and usr_codigo=".$usr_codigo;
+        $sql="
+        select * from documentos where doc_estado=true ".$usuario;
+
+        $result=Yii::app()->db->createCommand($sql)->queryAll();
+        return $result;
+    }
 }

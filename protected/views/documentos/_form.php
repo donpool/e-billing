@@ -18,12 +18,33 @@
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-
+    <?php $fields = array(
+        'Usuarios.usr_ruc',
+        'Usuarios.usr_nombre',
+        'doc_clave_acceso',
+        'doc_fecha_emision',
+        'doc_total',
+        'doc_matrizador',
+    );
+    foreach($fields as $field) : ?>
 	<div class="row">
-		<?php echo $form->labelEx($model,'usr_codigo'); ?>
-		<?php echo $form->textField($model,'usr_codigo'); ?>
-		<?php echo $form->error($model,'usr_codigo'); ?>
+    <?php 
+        if(strstr($field, '.')) {
+            $parts = explode('.', $field);
+            $label = $model->$parts[0]->$parts[1];
+        } else
+            $label = $model->$field;
+        echo $form->labelEx($model,$field) . $label; 
+    ?>
 	</div>
+    <?php endforeach; ?>
+    
+	<div class="row">
+		<?php echo $form->labelEx($model,'doc_numerodelibro'); ?>
+		<?php echo $form->textField($model,'doc_numerodelibro'); ?>
+		<?php echo $form->error($model,'doc_numerodelibro'); ?>
+	</div>
+<!--
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'doc_clave_acceso'); ?>
@@ -74,9 +95,9 @@
 		<?php echo $form->textField($model,'usr_codigoupd'); ?>
 		<?php echo $form->error($model,'usr_codigoupd'); ?>
 	</div>
-
+-->
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Grabar'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
