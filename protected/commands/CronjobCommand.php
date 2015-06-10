@@ -118,7 +118,7 @@ class CronjobCommand extends CConsoleCommand {
                     foreach ($info as $node) {
                         foreach ($node->attributes() as $atr => $value) {
                             $atributo=(string)$value;
-                            if ($atributo=="Email Cliente")
+                            if ($atributo=="Email Cliente" || $atributo=="Email")
                                 $datos->email=(string)$node;
                             if( !isset( $datos->email ) ) 
                                 $datos->email = Yii::app()->params['adminEmail'];

@@ -139,7 +139,7 @@ class Documentos extends CActiveRecord
 		$criteria->compare('doc_fecadd',$this->doc_fecadd,true);
 		$criteria->compare('doc_fecupd',$this->doc_fecupd,true);
 		$criteria->compare('usr_codigoupd',$this->usr_codigoupd);
-                $criteria->order = 'doc_codigo DESC';
+                $criteria->order = 'doc_fecha_emision DESC, doc_codigo DESC';
                 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

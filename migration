@@ -1,8 +1,18 @@
+201502020000:
+ALTER TABLE  `Usuarios` ADD  `usr_telefono` VARCHAR( 10 ) NULL ,
+ADD  `usr_telefono1` VARCHAR( 10 ) NULL ;
+
+ALTER TABLE  `documentos` ADD  `doc_tipoIdentificacionComprador` CHAR( 2 ) NULL ,
+ADD  `doc_subtotal` DOUBLE NULL ,
+ADD  `doc_iva` DOUBLE NULL ,
+ADD  `doc_total` DOUBLE NULL ;
+
 201505301215:
 ALTER TABLE  `documentos` ADD  `doc_numerodelibro` VARCHAR( 32 ) NULL AFTER  `doc_matrizador` ;
 
 201505301959:
 ALTER TABLE  `documentos` ADD  `doc_estadopago` ENUM(  'N/A',  'Por Cobrar',  'Pagado' ) NOT NULL DEFAULT  'N/A',
-ADD  `doc_formapago` VARCHAR( 128 ) NULL DEFAULT NOT NULL DEFAULT  'Efectivo',
+ADD  `doc_formapago` VARCHAR( 128 ) NOT NULL DEFAULT  'Efectivo',
 ADD  `doc_comisiona` BOOLEAN NOT NULL DEFAULT FALSE ,
 ADD  `doc_retencion` BOOLEAN NOT NULL DEFAULT FALSE ;
+
