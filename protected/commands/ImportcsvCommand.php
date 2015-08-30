@@ -29,10 +29,11 @@ class ImportcsvCommand extends CConsoleCommand {
             if( $elemento != "." && $elemento != "..") {
                 if (!is_dir($this->path.$elemento)) {
                     $extension = explode(".", $elemento);
-                    if (end($extension)=='csv')
-                        $data = $this->LeerArchivo ($this->path.DIRECTORY_SEPARATOR.$elemento);
-                        if( $data )
-                            $this->ProcesarDatos($data);
+                    $data = (end($extension)=='csv')
+                        ? $this->LeerArchivo ($this->path.DIRECTORY_SEPARATOR.$elemento)
+                        : null;
+                    if( $data )
+                        $this->ProcesarDatos($data);
                 }
             }
         }
@@ -55,6 +56,7 @@ class ImportcsvCommand extends CConsoleCommand {
                 $retval['NC'][] = $nc[2];
             }
         }
+        rename($path, $path.'.'.date('YmdHis'));
         return $retval;
     }
     
@@ -69,7 +71,10 @@ class ImportcsvCommand extends CConsoleCommand {
                     $model->doc_numerodelibro = $bill[7];
                     if($model->save())
                         echo "Factura {$bill[0]} actualizada\n";
-                }
+                } else
+                    echo "Factura {$bill[0]} ignorada, no está registrada en la BD!\n";
+            } else {
+                echo "Factura  {$bill[0]} ignorada, tiene Nota de Crédito asociada!\n";
             }
         }
     }

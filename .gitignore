@@ -1,10 +1,10 @@
 # Directorios de cache y corrida
-/assets
-/protected/config/params.php
+assets
+protected/config/params.php
 runtime
 
 # Directorio de documentos XML
-/protected/data/documentos
+protected/data/documentos
 
 # Directorio de trabajo de Netbeans
 nbproject
@@ -14,4 +14,4 @@ nbproject
 
 # Archivo de fondo de encabezado
 header-bg.png
-/themes/cupcake/img/logo*
+themes/cupcake/img/logo*
