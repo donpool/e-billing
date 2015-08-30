@@ -42,7 +42,7 @@ class Documentos extends CActiveRecord
 			array('doc_num_documento', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('doc_codigo, usr_codigo, doc_clave_acceso, doc_cod_doc, doc_fecha_emision, doc_valor_total,  doc_estado, doc_fecadd, doc_fecupd, usr_codigoupd, doc_numerodelibro, doc_estadopago, doc_formapago, doc_comisiona, doc_retencion', 'safe', 'on'=>'search'),
+			array('doc_codigo, usr_codigo, doc_clave_acceso, doc_cod_doc, doc_fecha_emision, doc_valor_total,  doc_estado, doc_fecadd, doc_fecupd, usr_codigoupd, doc_numerodelibro, doc_estadopago, doc_formapago, doc_comisiona, doc_comision_notario, doc_comision_matrizador, doc_retencion', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -83,6 +83,8 @@ class Documentos extends CActiveRecord
             'doc_estadopago' => 'E/P',
             'doc_formapago' => 'F/P',
             'doc_comisiona' => 'Com',
+            'doc_comision_notario' => 'Com.Not',
+            'doc_comision_matrizador' => 'Com.Mat',
             'doc_retencion' => 'Ret',
 		);
 	}
@@ -129,7 +131,7 @@ class Documentos extends CActiveRecord
                     $criteria->compare('Usuarios.usr_emal',$_GET['usr_email'],true);
                     $criteria->with='Usuarios';
                    }
-               
+		$criteria->compare('doc_numerodelibro',$this->doc_numerodelibro);
                     
 		$criteria->compare('doc_fecha_emision',$this->doc_fecha_emision,true);
                 

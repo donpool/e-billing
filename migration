@@ -1,3 +1,7 @@
+201508291600:
+ALTER TABLE  `documentos` ADD  `doc_comision_notario` DOUBLE NULL DEFAULT NULL AFTER  `doc_comisiona` ,
+ADD  `doc_comision_matrizador` DOUBLE NULL DEFAULT NULL AFTER  `doc_comision_notario` ;
+
 201502020000:
 ALTER TABLE  `Usuarios` ADD  `usr_telefono` VARCHAR( 10 ) NULL ,
 ADD  `usr_telefono1` VARCHAR( 10 ) NULL ;

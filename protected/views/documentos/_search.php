@@ -105,8 +105,12 @@
     <tr>
         <td colspan="2"></td>
         <td>E-mail</td>
-        <td colspan="4">
-              <?php echo Chtml::textField('usr_email','',array('size'=>80)); ?>
+        <td>
+              <?php echo Chtml::textField('usr_email','',array('size'=>40)); ?>
+        </td>
+        <td># Libro</td>
+        <td>
+            <?php echo $form->textField($model,'doc_numerodelibro'); ?>
         </td>
     </tr>
     <tr><td colspan="6" align='center'>

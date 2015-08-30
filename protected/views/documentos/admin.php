@@ -18,6 +18,7 @@
                 ),
             ),
             array('label'=>'Exportar CSV', 'url'=>array('exportar'),),
+            array('label'=>'Por Pagar', 'url'=>array('factporpagar'),),
         ),
     )); 
 ?>

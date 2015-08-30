@@ -17,7 +17,7 @@
     </br>        
 <table class="ui-widget-content" width="80%" align='center' border ='0'> 
     <tr  bgcolor="" height="20px" align="center">
-        <td colspan="6"><font color=""> <h1>BÚSQUEDA</h1></font></td>
+        <td colspan="6"><font color=""> <h1>Exportar a CSV</h1></font></td>
     </tr>
     <tr> 
         <td width='2%'></td>
@@ -89,13 +89,12 @@
             <?php echo $form->dropDownList($model,'doc_cod_doc',array (1=>"Factura",4=>"Nota de Credito")); ?></td>
         </td>
         <td></td>
-        <td>
-        </td>
+        <td></td>
     </tr>
    
     <tr>
         <td colspan="6" align='center'>
-          <?php echo CHtml::submitButton('Exportar CSV', array('class' => 'rebutton','onclick'=>'if ((jQuery ("#doc_fecha_emisionInicio").val()=="")&&jQuery ("#doc_fecha_emisionFin").val()=="") {alert ("Fechas Requeridas"); return false;}')); ?>
+          <?php echo CHtml::submitButton('Exportar CSV', array('class' => 'rebutton','onclick'=>'if ((jQuery ("#doc_fecha_emisionInicio").val()=="")||jQuery ("#doc_fecha_emisionFin").val()=="") {alert ("Fechas Requeridas"); return false;}')); ?>
           <?php echo CHtml::submitButton('Limpiar', array('class' => 'rebutton','onclick'=>'window.location.reload()')); ?> 
         </td>
     </tr>

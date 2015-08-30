@@ -20,10 +20,12 @@ $params = array(
         'rutatmp'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'../data/documentos/tmp',
         'rutaxml'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'../data/documentos/xml/',
         'rutapdf'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'../data/documentos/pdf/',
+        'rutacsv'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'../data/documentos/csv',
         'path'=>'p-billing/assets/documentos/xml/..',
         'debug'=>true,
         'debugSendEmail'=>false,
         'debugEmail'=>'donpool@gmail.com',
+        'importCSVpercent'=>5,
     ),
     'db'=>array(
         'connectionString' => 'mysql:host=localhost;dbname=pbilling',

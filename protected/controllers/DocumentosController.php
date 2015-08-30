@@ -36,7 +36,7 @@ class DocumentosController extends Controller
                 'expression'=>'Yii::app()->authmanager->checkAccess("Administrador",Yii::app()->user->id) '
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions'=>array('index','view','descarga','exportar'),
+                'actions'=>array('index','view','descarga','exportar','factporpagar'),
                 'users'=>array('@'),
             ),
             array('deny',  // deny all users
@@ -50,9 +50,8 @@ class DocumentosController extends Controller
  public function actionExportar(){
 
      $model=new Documentos;
-
-    
    if (isset($_POST['Documentos'])){
+//echo '<pre>'.print_r($_POST,1).'</pre>'; exit;
 
          if (isset($_POST['doc_fecha_emisionInicio']) && isset ($_POST['doc_fecha_emisionFin']) )
         {
@@ -87,6 +86,8 @@ class DocumentosController extends Controller
                     IFNULL(doc_estadopago, '') ESTADOPAGO,
                     IFNULL(doc_formapago, '') FORMAPAGO,
                     IFNULL(doc_comisiona, '') COMISIONA,
+                    IFNULL(doc_comision_notario, '') COMISIONNOTARIO,
+                    IFNULL(doc_comision_matrizador, '') COMISIONMATRIZADOR,
                     IFNULL(doc_retencion, '') RETENCION"
                 )
                     ->from('documentos d')
@@ -113,10 +114,12 @@ class DocumentosController extends Controller
                     'ESTADOPAGO'=>array('text'),
                     'FORMAPAGO'=>array('text'),
                     'COMISIONA'=>array('boolean'),
+                    'COMISIONNOTARIO'=>array('text'),
+                    'COMISIONMATRIZADOR'=>array('text'),
                     'RETENCION'=>array('boolean'),
                 ),
            true, // boolPrinxtRows
-           "Registro-{$_POST['doc_fecha_emisionInicio']}-{$_POST['doc_fecha_emisionFin']}.csv"
+           "Registro-{$_POST['doc_fecha_emisionInicio']}-{$_POST['doc_fecha_emisionFin']}.xls"
            );
         }
       
@@ -128,6 +131,90 @@ class DocumentosController extends Controller
 }
 //
     
+ public function actionFactporpagar(){
+
+     $model=new Documentos;
+
+   if (isset($_POST['doc_fecha_emisionInicio'])){
+
+         if (isset($_POST['doc_fecha_emisionInicio']) && isset ($_POST['doc_fecha_emisionFin']) )
+        {
+          
+           $datetimemin=($_POST['doc_fecha_emisionInicio']);
+           $datetimemax=($_POST['doc_fecha_emisionFin']);
+          $tipo='1';
+//              $m= Yii::app()->db->createCommand()->select("doc_fecha_emision  FECHA, doc_num_documento FACTURA, usr_nombre NOMBRES, IFNULL( doc_subtotal,'') SUBTOTAL,  IFNULL(doc_iva,'' )IVA,  IFNULL(doc_total,'') TOTAL, IFNULL(  CAST(usr_ruc as char(100)),'') CEDULA, IFNULL(doc_tipoIdentificacionComprador , '') TIPO, usr_emal CORREO,usr_direccion DIRECCION ,IFNULL(usr_telefono,'') TELEFONO1, IFNULL(usr_telefono1,'') TELEFONO2,doc_matrizador MATRIZADOR")
+//                    ->from('documentos d')
+//                    ->join('Usuarios u', 'u.usr_codigo=d.usr_codigo')
+//                    ->where ( 'doc_cod_doc='.$tipo.' and doc_estado=true and (doc_fecha_emision  BETWEEN '."'".$datetimemin."'".' AND '."'".$datetimemax."'".')')
+//                   ->order ('doc_fecha_emision')
+//                    ->queryAll();
+//            var_dump($m);
+//            exit();
+$query = Yii::app()->db->createCommand()->select("
+                    doc_fecha_emision  FECHA, 
+                    doc_num_documento FACTURA, 
+                    usr_nombre NOMBRES, 
+                    IFNULL( doc_subtotal,'') SUBTOTAL,  
+                    IFNULL(doc_iva,'' )IVA,  
+                    IFNULL(doc_total,'') TOTAL, 
+                    IFNULL(  CAST(usr_ruc as char(100)),'') CEDULA, 
+                    IFNULL(doc_tipoIdentificacionComprador , '') TIPO, 
+                    IFNULL(usr_emal, '') CORREO,
+                    IFNULL(usr_direccion, '') DIRECCION,
+                    IFNULL(usr_telefono,'') TELEFONO1, 
+                    IFNULL(usr_telefono1,'') TELEFONO2,
+                    IFNULL(doc_matrizador, '') MATRIZADOR,
+                    IFNULL(doc_numerodelibro, '') NUMERODELIBRO,
+                    IFNULL(doc_estadopago, '') ESTADOPAGO,
+                    IFNULL(doc_formapago, '') FORMAPAGO,
+                    IFNULL(doc_comisiona, '') COMISIONA,
+                    IFNULL(doc_comision_notario, '') COMISIONNOTARIO,
+                    IFNULL(doc_comision_matrizador, '') COMISIONMATRIZADOR,
+                    IFNULL(doc_retencion, '') RETENCION"
+                )
+                    ->from('documentos d')
+                    ->join('Usuarios u', 'u.usr_codigo=d.usr_codigo')
+                    ->where ( 'doc_estadopago="Por Cobrar" AND doc_cod_doc='.$tipo.' and doc_estado=true and (doc_fecha_emision  BETWEEN '."'".$datetimemin."'".' AND '."'".$datetimemax."'".')')
+                    ->order ('doc_fecha_emision')
+                    ->queryAll()
+                    ;
+           CsvExport::export(
+                $query,
+                   
+                array(
+                    'FECHA'=>array('date'),
+                    'FACTURA'=>array('text'),
+                    'NOMBRES'=>array('text'),
+                    'SUBTOTAL'=>array('text'),
+                    'IVA'=>array('text'),
+                    'TOTAL'=>array('text'),
+                    'CEDULA'=>array('text'),
+                    'TIPO'=>array('text'),
+                    'CORREO'=>array('text'),
+                    'DIRECCION'=>array('text'),
+                    'TELEFONO1'=>array('text'),
+                    'TELEFONO2'=>array('text'),
+                    'MATRIZADOR'=>array('text'),
+                    'NUMERODELIBRO'=>array('text'),
+                    'ESTADOPAGO'=>array('text'),
+                    'FORMAPAGO'=>array('text'),
+                    'COMISIONA'=>array('boolean'),
+                    'COMISIONNOTARIO'=>array('text'),
+                    'COMISIONMATRIZADOR'=>array('text'),
+                    'RETENCION'=>array('boolean'),
+                ),
+           true, // boolPrinxtRows
+           "PorCobrar-{$_POST['doc_fecha_emisionInicio']}-{$_POST['doc_fecha_emisionFin']}.xls"
+           );
+        }
+      
+   }
+  
+   else  $this->render('factporpagar',array('model'=>$model));
+      
+
+}
        
         
 public function actionCoco()
