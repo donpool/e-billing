@@ -185,9 +185,10 @@ function fnLeerFactura($languages){
     $html.='<tr><td width="2%"></td><td>CI/RUC</td><td>'.$languages->infoFactura->identificacionComprador.'</td></tr>';
     $html.='</table></div><br>';
     $html.='<table class="detalle" width="100%" border="1" >';
-    $html.='<tr><th>Cod.<br>Principal</th><th>Cod.<br>Auxiliar</th><th>Descripción</th><th>Cantidad</th><th>Precio<br>Unitario</th><th>Descuento</th><th>Precio<br>Total</th></tr> ';
+    $html.='<tr><!--<th>Cod.<br>Principal</th><th>Cod.<br>Auxiliar</th>-->
+        <th>Descripción</th><th>Cantidad</th><th>Precio<br>Unitario</th><th>Descuento</th><th>Precio<br>Total</th></tr> ';
     foreach ($languages->detalles->detalle as $value) {
-        $html.='<tr><td align="center">'.(string)$value->codigoPrincipal.'</td><td align="center">'.(string)$value->codigoAuxiliar.'</td><td align="center">'.(string)$value->descripcion.'</td>';
+        $html.='<tr><!--<td align="center">'.(string)$value->codigoPrincipal.'</td><td align="center">'.(string)$value->codigoAuxiliar.'</td>--><td align="center">'.(string)$value->descripcion.'</td>';
         $html.='<td align="center">'.(string)$value->cantidad.'</td><td align="center">'.(string)$value->precioUnitario.'</td><td align="center">'.(string)$value->descuento.'</td><td align="right" width="120px">'.(string)$value->precioTotalSinImpuesto.'</td></tr>';
     }
     $html.='</table>';
@@ -252,6 +253,8 @@ function fnLeerInfoAdicional($languages){
                         $data->direccion=(string)$node;
                     if ($atributo=="Teléfono")
                         $data->telefono=(string)$node;
+                    if ($atributo=="Matrizador")
+                        $data->matrizador=(string)$node;
                 }
             }
         }
@@ -260,7 +263,8 @@ function fnLeerInfoAdicional($languages){
     $html.='<table>';
     if (!empty($data->direccion)) $html.= '<tr><td width="2%"></td><td >Dirección</td><td>'.(string)$data->direccion. '</td></tr>';
     if (!empty($data->telefono)) $html .= '<tr><td></td><td>Teléfono</td><td>'.$data->telefono. '</td></tr>';
-    if (!empty($data->email)) $html .= '<tr><td></td><td>Email </td><td>'.$data->email. '</td></tr>';;
+    if (!empty($data->email)) $html .= '<tr><td></td><td>Email </td><td>'.$data->email. '</td></tr>';
+    if (!empty($data->matrizador)) $html .= '<tr><td></td><td>Matrizador </td><td>'.$data->matrizador. '</td></tr>';
     $html.='</table>';
     $html.='</div>';
     return $html;

@@ -133,7 +133,7 @@ class Documentos extends CActiveRecord
                    }
 		$criteria->compare('doc_numerodelibro',$this->doc_numerodelibro);
                     
-		$criteria->compare('doc_fecha_emision',$this->doc_fecha_emision,true);
+//		$criteria->compare('doc_fecha_emision',$this->doc_fecha_emision,true);
                 
 		$criteria->compare('doc_valor_total',$this->doc_valor_total);
 		 $criteria->compare('doc_num_documento',$this->doc_num_documento,true);
