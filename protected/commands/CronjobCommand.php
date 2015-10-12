@@ -264,6 +264,8 @@ class CronjobCommand extends CConsoleCommand {
             $model->doc_formapago=null;
             $model->doc_comisiona=0;
             $model->doc_retencion=0;
+            $model->doc_ret_iva=0;
+            $model->doc_ret_ir=0;
         }
         
         return $model;

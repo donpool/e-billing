@@ -1,3 +1,8 @@
+201510121000:
+ALTER TABLE  `documentos` ADD  `doc_ret_iva` DOUBLE NULL ,
+ADD  `doc_ret_ir` DOUBLE NULL ;
+UPDATE `documentos` SET `doc_ret_iva`=(`doc_iva`), `doc_ret_ir`=(`doc_subtotal`*0.08) WHERE `doc_retencion`=1;
+
 201508291600:
 ALTER TABLE  `documentos` ADD  `doc_comision_notario` DOUBLE NULL DEFAULT NULL AFTER  `doc_comisiona` ,
 ADD  `doc_comision_matrizador` DOUBLE NULL DEFAULT NULL AFTER  `doc_comision_notario` ;

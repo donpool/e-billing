@@ -151,7 +151,9 @@
             'doc_estadopago',
             'doc_formapago',
             'doc_comisiona:boolean',
-            'doc_retencion:boolean',
+//            'doc_retencion:boolean',
+            'doc_ret_iva',
+            'doc_ret_ir',
             array('name'=>'doc_fecha_emision', 'htmlOptions'=>array('width'=>'10%')),
             array(
                 'name'=>'doc_clave_acceso',

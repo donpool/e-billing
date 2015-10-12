@@ -88,7 +88,9 @@ class DocumentosController extends Controller
                     IFNULL(doc_comisiona, '') COMISIONA,
                     IFNULL(doc_comision_notario, '') COMISIONNOTARIO,
                     IFNULL(doc_comision_matrizador, '') COMISIONMATRIZADOR,
-                    IFNULL(doc_retencion, '') RETENCION"
+                    IFNULL(doc_retencion, '') RETENCION,
+                    IFNULL(doc_ret_iva, '') RET_IVA,
+                    IFNULL(doc_ret_ir, '') RET_IR"
                 )
                     ->from('documentos d')
                     ->join('Usuarios u', 'u.usr_codigo=d.usr_codigo')
@@ -117,6 +119,8 @@ class DocumentosController extends Controller
                     'COMISIONNOTARIO'=>array('text'),
                     'COMISIONMATRIZADOR'=>array('text'),
                     'RETENCION'=>array('boolean'),
+                    'RET_IVA'=>array('text'),
+                    'RET_IR'=>array('text'),
                 ),
            true, // boolPrinxtRows
            "Registro-{$_POST['doc_fecha_emisionInicio']}-{$_POST['doc_fecha_emisionFin']}.xls"
@@ -171,7 +175,9 @@ $query = Yii::app()->db->createCommand()->select("
                     IFNULL(doc_comisiona, '') COMISIONA,
                     IFNULL(doc_comision_notario, '') COMISIONNOTARIO,
                     IFNULL(doc_comision_matrizador, '') COMISIONMATRIZADOR,
-                    IFNULL(doc_retencion, '') RETENCION"
+                    IFNULL(doc_retencion, '') RETENCION,
+                    IFNULL(doc_ret_iva, '') RET_IVA,
+                    IFNULL(doc_ret_ir, '') RET_IR"
                 )
                     ->from('documentos d')
                     ->join('Usuarios u', 'u.usr_codigo=d.usr_codigo')
@@ -203,6 +209,8 @@ $query = Yii::app()->db->createCommand()->select("
                     'COMISIONNOTARIO'=>array('text'),
                     'COMISIONMATRIZADOR'=>array('text'),
                     'RETENCION'=>array('boolean'),
+                    'RET_IVA'=>array('text'),
+                    'RET_IR'=>array('text'),
                 ),
            true, // boolPrinxtRows
            "PorCobrar-{$_POST['doc_fecha_emisionInicio']}-{$_POST['doc_fecha_emisionFin']}.xls"

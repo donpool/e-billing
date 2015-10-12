@@ -62,6 +62,18 @@
 		<?php echo $form->dropDownList($model,'doc_retencion', array('0'=>'No','1'=>'Sí',)); ?>
 		<?php echo $form->error($model,'doc_retencion'); ?>
 	</div>
+    
+	<div class="row">
+		<?php echo $form->labelEx($model,'doc_ret_iva'); ?>
+		<?php echo $form->textField($model,'doc_ret_iva'); ?>
+		<?php echo $form->error($model,'doc_ret_iva'); ?>
+	</div>
+    
+	<div class="row">
+		<?php echo $form->labelEx($model,'doc_ret_ir'); ?>
+		<?php echo $form->textField($model,'doc_ret_ir'); ?>
+		<?php echo $form->error($model,'doc_ret_ir'); ?>
+	</div>
 <!--
 
 	<div class="row">
