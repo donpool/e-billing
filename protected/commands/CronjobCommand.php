@@ -65,13 +65,14 @@ class CronjobCommand extends CConsoleCommand {
        
     public function LeerArchivoXML($path) {
         $datos = new stdClass();
-        $languages = simplexml_load_file($path);
-        if (!isset($languages->infoTributaria)) {
-            $languages= simplexml_load_file($path,'SimpleXMLElement', LIBXML_NOCDATA);
-            $languages= simplexml_load_string($languages->comprobante, 'SimpleXMLElement', LIBXML_NOCDATA);
+        $xmlFile = simplexml_load_file($path);
+        if (!isset($xmlFile->infoTributaria)) {
+            $xmlFile= simplexml_load_file($path,'SimpleXMLElement', LIBXML_NOCDATA);
+            $languages= simplexml_load_string($xmlFile->comprobante, 'SimpleXMLElement', LIBXML_NOCDATA);
         }
         if (isset($languages->infoTributaria->claveAcceso)) {
             $datos = new stdClass();
+            $datos->numeroAutorizacion = (string) $xmlFile->numeroAutorizacion;
             $datos->claveAcceso=(string) $languages->infoTributaria->claveAcceso;
             $datos->estab=(string) $languages->infoTributaria->estab;
             $datos->ptoEmi=(string) $languages->infoTributaria->ptoEmi;
@@ -247,6 +248,8 @@ class CronjobCommand extends CConsoleCommand {
     
     private function setVarFields($model, $data, $isNew) {
         $model->doc_tipoIdentificacionComprador=$data->tipoIdentificacionComprador;
+        if (isset ($data->numeroAutorizacion))
+            $model->doc_numero_autorizacion = $data->numeroAutorizacion;
         if (isset ($data->subtotal)) 
             $model->doc_subtotal=$data->subtotal;
         if (isset ($data->iva)) 

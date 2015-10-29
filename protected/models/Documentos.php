@@ -65,6 +65,7 @@ class Documentos extends CActiveRecord
 		return array(
 			'doc_codigo' => 'Codigo',
 			'usr_codigo' => 'Usuario',
+            'doc_numero_autorizacion' => '# Autorización',
 			'doc_clave_acceso' => 'Clave de Acceso',
 			'doc_cod_doc' => 'Tipo Documento',
 			'doc_fecha_emision' => 'Fecha  Emision',

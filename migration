@@ -1,3 +1,6 @@
+201510282140:
+ALTER TABLE  `documentos` ADD  `doc_numero_autorizacion` VARCHAR( 64 ) NULL AFTER  `usr_codigo` ;
+
 201510121000:
 ALTER TABLE  `documentos` ADD  `doc_ret_iva` DOUBLE NULL ,
 ADD  `doc_ret_ir` DOUBLE NULL ;

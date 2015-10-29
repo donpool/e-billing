@@ -71,6 +71,7 @@ class DocumentosController extends Controller
                 Yii::app()->db->createCommand()->select("
                     doc_fecha_emision  FECHA, 
                     doc_num_documento FACTURA, 
+                    IFNULL( doc_numero_autorizacion,'') AUTORIZACION,  
                     usr_nombre NOMBRES, 
                     IFNULL( doc_subtotal,'') SUBTOTAL,  
                     IFNULL(doc_iva,'' )IVA,  
@@ -101,6 +102,7 @@ class DocumentosController extends Controller
                 array(
                     'FECHA'=>array('date'),
                     'FACTURA'=>array('text'),
+                    'AUTORIZACION'=>array('text'),
                     'NOMBRES'=>array('text'),
                     'SUBTOTAL'=>array('text'),
                     'IVA'=>array('text'),
@@ -158,6 +160,7 @@ class DocumentosController extends Controller
 $query = Yii::app()->db->createCommand()->select("
                     doc_fecha_emision  FECHA, 
                     doc_num_documento FACTURA, 
+                    IFNULL( doc_numero_autorizacion,'') AUTORIZACION,  
                     usr_nombre NOMBRES, 
                     IFNULL( doc_subtotal,'') SUBTOTAL,  
                     IFNULL(doc_iva,'' )IVA,  
@@ -191,6 +194,7 @@ $query = Yii::app()->db->createCommand()->select("
                 array(
                     'FECHA'=>array('date'),
                     'FACTURA'=>array('text'),
+                    'AUTORIZACION'=>array('text'),
                     'NOMBRES'=>array('text'),
                     'SUBTOTAL'=>array('text'),
                     'IVA'=>array('text'),
